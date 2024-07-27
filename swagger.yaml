@@ -1,0 +1,294 @@
+openapi: 3.0.0
+info:
+  title: Your API
+  version: 1.0.0
+  description: Description of your API
+paths:
+  /api/calls/make:
+    post:
+      summary: Make a call
+      tags:
+        - Calls
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MakeCall'
+      responses:
+        '200':
+          description: Call made successfully
+        '422':
+          description: Validation error
+  /api/campaigns/create:
+    post:
+      summary: Create a campaign
+      tags:
+        - Campaigns
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCampaign'
+      responses:
+        '201':
+          description: Campaign created successfully
+        '422':
+          description: Validation error
+  /api/campaigns/update:
+    post:
+      summary: Update a campaign
+      tags:
+        - Campaigns
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCampaign'
+      responses:
+        '200':
+          description: Campaign updated successfully
+        '422':
+          description: Validation error
+  /api/campaigns:
+    get:
+      summary: Get a list of all campaigns
+      tags:
+        - Campaigns
+      
+      responses:
+        '200':
+          description: Successful response
+          
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: Campaigns not found
+  /api/calls/status:
+    get:
+      summary: Get call status
+      tags:
+        - Calls
+      parameters:
+        - in: query
+          name: callId
+          schema:
+            type: string
+          required: true
+          description: Call ID
+      responses:
+        '200':
+          description: Call status retrieved successfully
+        '422':
+          description: Validation error
+  /api/calls/transcription:
+    get:
+      summary: Get call transcription
+      tags:
+        - Calls
+      responses:
+        '200':
+          description: Transcription retrieved successfully
+        '422':
+          description: Validation error
+  /api/calls/post_analysis:
+    get:
+      summary: Get post-call analysis
+      tags:
+        - Calls
+      responses:
+        '200':
+          description: Post-call analysis retrieved successfully
+        '422':
+          description: Validation error
+  /api/languages/supported_languages:
+    get:
+      summary: Get supported languages
+      tags:
+        - Languages
+      responses:
+        '200':
+          description: Supported languages retrieved successfully
+  /api/languages/supported_voices:
+    get:
+      summary: Get supported voices
+      tags:
+        - Languages
+      responses:
+        '200':
+          description: Supported voices retrieved successfully
+components:
+  schemas:
+    CreateCampaign:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of the campaign
+        voice:
+          type: string
+          description: Voice used for the campaign
+          enum:
+            - robot
+            - jenny
+            - junior
+            - nabarupa
+            - alloy
+            - echo
+            - fable
+            - onyx
+            - nova
+            - shimmer
+            - jessica
+            - anna
+            - lisa
+            - johwaan
+            - david
+            - monika
+            - swara
+            - varun
+            - amrit
+            - amari
+            - louis
+            - charlotte
+            - alexandre
+            - priya_hindi
+            - alisha_hindi
+            - bobby
+        language:
+          type: string
+          description: Language of the campaign
+          enum:
+            - english
+            - hindi
+        script:
+          type: string
+          description: Script for the campaign
+          minLength: 200
+          example: "This is a sample script that meets the minimum length requirement and provides meaningful content."
+        purpose:
+          type: string
+          description: Purpose of the campaign
+        knowledgeBase:
+          type: string
+          description: Knowledge base for the campaign
+        calendar:
+          type: string
+          description: Calendar associated with the campaign
+        firstLine:
+          type: string
+          description: First line of the campaign
+        tone:
+          type: string
+          description: Tone of the campaign
+        postCallAnalysis:
+          type: boolean
+          description: Flag for post-call analysis
+        postCallAnalysisSchema:
+          type: object
+          description: Schema for post-call analysis
+          additionalProperties: true
+      required:
+        - title
+        - voice
+        - language
+        - script
+        - postCallAnalysis
+    UpdateCampaign:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the campaign to update
+        title:
+          type: string
+          description: Title of the campaign
+        voice:
+          type: string
+          description: Voice used for the campaign
+          enum:
+            - robot
+            - jenny
+            - junior
+            - nabarupa
+            - alloy
+            - echo
+            - fable
+            - onyx
+            - nova
+            - shimmer
+            - jessica
+            - anna
+            - lisa
+            - johwaan
+            - david
+            - monika
+            - swara
+            - varun
+            - amrit
+            - amari
+            - louis
+            - charlotte
+            - alexandre
+            - priya_hindi
+            - alisha_hindi
+            - bobby
+        language:
+          type: string
+          description: Language of the campaign
+          enum:
+            - english
+            - hindi
+        script:
+          type: string
+          description: Script for the campaign
+          minLength: 200
+        purpose:
+          type: string
+          description: Purpose of the campaign
+        knowledgeBase:
+          type: string
+          description: Knowledge base for the campaign
+        calendar:
+          type: string
+          description: Calendar associated with the campaign
+        firstLine:
+          type: string
+          description: First line of the campaign
+        tone:
+          type: string
+          description: Tone of the campaign
+        postCallAnalysis:
+          type: boolean
+          description: Flag for post-call analysis
+        postCallAnalysisSchema:
+          type: object
+          description: Schema for post-call analysis
+          additionalProperties: true
+      required:
+        - id
+    MakeCall:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the caller
+        phoneNumber:
+          type: string
+          description: Phone number of the caller
+          pattern: ^[0-9]{10,15}$
+        campID:
+          type: string
+          description: Campaign ID
+      required:
+        - name
+        - phoneNumber
+        - campID

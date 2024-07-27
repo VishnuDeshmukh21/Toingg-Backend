@@ -1,9 +1,10 @@
 const express = require('express');
-const languageController = require('../controllers/languageController');
+const { getSupportedLanguages, getSupportedVoices } = require('../controllers/languageController');
 
 const router = express.Router();
 
-router.get('/languages', languageController.getSupportedLanguages);
-router.get('/voices', languageController.getSupportedVoices);
+router.get('/supported_languages', getSupportedLanguages);
+
+router.get('/supported_voices', getSupportedVoices);
 
 module.exports = router;

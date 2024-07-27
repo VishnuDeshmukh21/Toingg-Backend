@@ -3,7 +3,8 @@ const campaignRoutes = require('./campaignRoutes');
 const callRoutes = require('./callRoutes');
 const languageRoutes = require('./languageRoutes');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../../swagger.json');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');  
 
 const router = express.Router();
 

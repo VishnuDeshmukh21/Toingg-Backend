@@ -9,7 +9,7 @@ const options = {
       description: 'API documentation for Toingg',
     },
   },
-  apis: ['./src/routes/*.js'], // files containing annotations as above
+  apis: ['./src/routes/*.js'], 
 };
 
 const swaggerSpec = swaggerJsdoc(options);
