@@ -10,5 +10,9 @@ router.post('/create', validateRequest(createCampaignSchema), campaignController
 router.post('/update', validateRequest(updateCampaignSchema), campaignController.updateCampaign);
 
 router.get('/', campaignController.getCampaigns);
+router.get('/pdf', campaignController.pdfExtract);
+
 
 module.exports = router;
+
+
