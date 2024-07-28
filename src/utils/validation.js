@@ -21,15 +21,15 @@ exports.createCampaignSchema = Joi.object({
 
 exports.updateCampaignSchema = Joi.object({
   id: Joi.string().required(),
-  title: Joi.string().optional(), 
-  voice: Joi.string().valid('robot', 'jenny', 'junior', 'nabarupa', 'alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer', 'jessica', 'anna', 'lisa', 'johwaan', 'david', 'monika', 'swara', 'varun', 'amrit', 'amari', 'louis', 'charlotte', 'alexandre', 'priya_hindi', 'alisha_hindi', 'bobby').optional(), 
-  language: Joi.string().valid('english', 'hindi').optional(), 
+  title: Joi.string().allow('').optional(), 
+  voice: Joi.string().allow('').optional(), 
+  language: Joi.string().optional(), 
   script: Joi.string().min(200).optional(), 
-  purpose: Joi.string().optional(), 
-  knowledgeBase: Joi.string().optional(), 
-  calendar: Joi.string().optional(), 
-  firstLine: Joi.string().optional(), 
-  tone: Joi.string().optional(), 
+  purpose: Joi.string().allow('').optional(), 
+  knowledgeBase: Joi.string().allow('').optional(), 
+  calendar: Joi.string().allow('').optional(), 
+  firstLine: Joi.string().allow('').optional(), 
+  tone: Joi.string().allow('').optional(), 
   postCallAnalysis: Joi.boolean().optional(),
   postCallAnalysisSchema: Joi.object().optional().when('postCallAnalysis', { is: true, then: Joi.required() }) 
 });
