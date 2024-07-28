@@ -6,6 +6,36 @@ const formidable = require('formidable');
 const fs = require('fs');
 const { PDFDocument } = require('pdf-lib');
 
+exports.pdfExtract = async (req, res) => {
+  const form = new formidable.IncomingForm();
+  
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error parsing the file' });
+    }
+
+    try {
+      const pdfPath = files.pdf.path;
+      const pdfData = fs.readFileSync(pdfPath);
+      const pdfDoc = await PDFDocument.load(pdfData);
+      const numPages = pdfDoc.getPageCount();
+      let fullText = '';
+
+      for (let i = 0; i < numPages; i++) {
+        const page = pdfDoc.getPage(i);
+        const textContent = await page.getTextContent();
+        const pageText = textContent.items.map(item => item.str).join(' ');
+        fullText += pageText + '\n';
+      }
+
+      res.status(200).json({ text: fullText });
+    } catch (error) {
+      res.status(500).json({ error: 'Error extracting PDF content' });
+    }
+  }
+             };
+
+
 exports.createCampaign = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
