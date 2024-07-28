@@ -15,7 +15,7 @@ exports.pdfExtract = async (req, res) => {
     }
 
     try {
-      const pdfPath = files.pdf.path;
+      const pdfPath = files.pdf.filepath; // Changed 'path' to 'filepath' for compatibility with newer formidable versions
       const pdfData = fs.readFileSync(pdfPath);
       const pdfDoc = await PDFDocument.load(pdfData);
       const numPages = pdfDoc.getPageCount();
@@ -32,9 +32,8 @@ exports.pdfExtract = async (req, res) => {
     } catch (error) {
       res.status(500).json({ error: 'Error extracting PDF content' });
     }
-  }
-             };
-
+  });
+};
 
 exports.createCampaign = async (req, res) => {
   const errors = validationResult(req);
