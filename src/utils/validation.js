@@ -3,13 +3,8 @@ const Joi = require('joi');
 
 exports.createCampaignSchema = Joi.object({
   title: Joi.string().required(),
-  voice: Joi.string().valid(
-    'robot', 'jenny', 'junior', 'nabarupa', 'alloy', 'echo', 'fable',
-    'onyx', 'nova', 'shimmer', 'jessica', 'anna', 'lisa', 'johwaan',
-    'david', 'monika', 'swara', 'varun', 'amrit', 'amari', 'louis',
-    'charlotte', 'alexandre', 'priya_hindi', 'alisha_hindi', 'bobby'
-  ).required(), 
-  language: Joi.string().valid('english', 'hindi').required(),
+  voice: Joi.string().required(), 
+  language: Joi.string().required(),
   script: Joi.string().min(200).required(), 
   purpose: Joi.string().optional(), 
   knowledgeBase: Joi.string().optional(), 
