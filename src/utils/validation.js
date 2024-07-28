@@ -6,15 +6,15 @@ exports.createCampaignSchema = Joi.object({
   voice: Joi.string().required(), 
   language: Joi.string().required(),
   script: Joi.string().min(200).required(), 
-  purpose: Joi.string().optional(), 
-  knowledgeBase: Joi.string().optional(), 
-  calendar: Joi.string().optional(), 
-  firstLine: Joi.string().optional(), 
-  tone: Joi.string().optional(), 
+  purpose: Joi.string().allow('').optional(), // Allow empty string
+  knowledgeBase: Joi.string().allow('').optional(), // Allow empty string
+  calendar: Joi.string().allow('').optional(), // Allow empty string
+  firstLine: Joi.string().allow('').optional(), // Allow empty string
+  tone: Joi.string().allow('').optional(), // Allow empty string
   postCallAnalysis: Joi.boolean().required(), 
   postCallAnalysisSchema: Joi.object().optional().when('postCallAnalysis', {
     is: true,
-    then: Joi.required() 
+    then: Joi.required()
   })
 });
 
